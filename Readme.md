@@ -44,13 +44,16 @@ npm run build
 The output will be placed in the /dist directory.
 
 📡 Module Federation Setup
-This project exposes the following modules via remoteEntry.js:
+This project exposes the following modules via remoteEntry.js and this is necessary configuration on webpack.config.js:
 
-Remote Module | Path
-DashboardCard | ./src/App
-Demo | ./src/components/Demo
-styles | ./src/globals.css
-To consume this remote in a host app:
+| Remote Module | Path                       |
+|:--------------|---------------------------:|
+| DashboardCard | ./src/App                  |
+| Demo          | ./src/components/Demo      |
+| styles        | ./src/globals.css          |
+
+
+
 
 ```js
 remotes: {
