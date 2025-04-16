@@ -54,14 +54,15 @@ To consume this remote in a host app:
 
 ```js
 remotes: {
-  analyticsRemote: "sampleRemote@http://localhost:3002/remoteEntry.js"
+  sampleRemote: "sampleRemote@http://localhost:3002/remoteEntry.js"
 }
 ```
 And then dynamically import:
 
 ```js
-const Demo = await import("analyticsRemote/Demo");
+const Demo = await import("sampleRemote/Demo");
 ```
+in your host application. Right now we already have more efficient way of doing this.
 
 🧰 Tech Stack
 React 18
