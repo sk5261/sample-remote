@@ -1,4 +1,4 @@
-# 📊 analytics-remote
+# 📊 Sample Remote Application
 
 A microfrontend built with Webpack Module Federation (`@module-federation/enhanced`), React, TypeScript, and TailwindCSS. This remote exposes reusable components like `DashboardCard`, `Demo`, and global styles for federation into a host application.
 
@@ -13,50 +13,56 @@ A microfrontend built with Webpack Module Federation (`@module-federation/enhanc
 
 ---
 
+### Git Clone
+
+```bash
+git clone https://github.com/sk5261/sample-remote.git
+cd sample-remote
+```
+
 ### 📦 Install Dependencies
 
 ```bash
 npm install
+```
+
 🛠️ Development
-bash
-Copy
-Edit
+```bash
 npm start
+```
 This spins up the development server at:
 
-arduino
-Copy
-Edit
+```bash
 http://localhost:3002/
+```
+
 🧪 Build for Production
-bash
-Copy
-Edit
+
+```bash
 npm run build
+```
 The output will be placed in the /dist directory.
 
 📡 Module Federation Setup
 This project exposes the following modules via remoteEntry.js:
 
-
-Remote Module	Path
-DashboardCard	./src/App
-Demo	./src/components/Demo
-styles	./src/globals.css
+Remote Module | Path
+DashboardCard | ./src/App
+Demo | ./src/components/Demo
+styles | ./src/globals.css
 To consume this remote in a host app:
 
-js
-Copy
-Edit
+```js
 remotes: {
   analyticsRemote: "sampleRemote@http://localhost:3002/remoteEntry.js"
 }
+```
 And then dynamically import:
 
-js
-Copy
-Edit
+```js
 const Demo = await import("analyticsRemote/Demo");
+```
+
 🧰 Tech Stack
 React 18
 
