@@ -20,14 +20,16 @@ declare global {
     hostAuthContext?: AuthContextValue;
     __sampleRemoteBuildVersion?: string;
   }
+
+  const process: {
+    env: {
+      NODE_ENV?: string;
+      REACT_APP_BUILD_VERSION?: string;
+      [key: string]: string | undefined;
+    };
+  };
 }
 
-declare const process: {
-  env: {
-    NODE_ENV?: string;
-    REACT_APP_BUILD_VERSION?: string;
-    [key: string]: string | undefined;
-  };
-};
+declare module "*.css";
 
 export {};

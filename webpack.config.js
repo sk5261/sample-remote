@@ -45,6 +45,15 @@ module.exports = {
         { from: /./, to: "/index.html" },
       ],
     },
+    proxy: [
+      {
+        context: ["/remote-api"],
+        target: "http://localhost:5000", // Change this to your backend dev server.
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/remote-api": "/api" }, // Change "/api" if your backend uses a different base path.
+      },
+    ],
   },
   output: {
     path: path.resolve(__dirname, "build"),
