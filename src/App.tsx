@@ -1,34 +1,26 @@
+import React from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import MainPage from "@/pages/main";
+import SettingsPage from "@/pages/settings";
+import { ROUTES } from "@/routes";
 
-  import React, { useState } from 'react';
-  import { Routes, Route, Navigate } from 'react-router-dom';
+function MainRoute() {
+  const navigate = useNavigate();
+  return <MainPage onNavigate={navigate} />;
+}
 
+function SettingsRoute() {
+  const navigate = useNavigate();
+  return <SettingsPage onNavigate={navigate} />;
+}
 
-  const App: React.FC = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    // Handle sidebar toggle
-    const toggleSidebar = () => {
-      setSidebarOpen(!sidebarOpen);
-    };
-  
-    // Handle closing sidebar
-    const closeSidebar = () => {
-      setSidebarOpen(false);
-    };
-    return (
-      <div className="flex flex-col h-screen">
-
-      <Routes>
-        <Route path="/" element={      
-           <div>
-             This is the sample remote app.
-           </div>
-          } />
-  
-     
-      </Routes>
-      </div>
-    );
-  };
-
-  export default App; 
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to={ROUTES.main} replace />} />
+      <Route path={ROUTES.main} element={<MainRoute />} />
+      <Route path={ROUTES.settings} element={<SettingsRoute />} />
+      <Route path="*" element={<Navigate to={ROUTES.main} replace />} />
+    </Routes>
+  );
+}

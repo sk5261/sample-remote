@@ -1,88 +1,87 @@
-# 📊 Sample Remote Application
+# Sample Remote
 
-A microfrontend built with Webpack Module Federation (`@module-federation/enhanced`), React, TypeScript, and TailwindCSS. This remote exposes reusable components like `DashboardCard`, `Demo`, and global styles for federation into a host application.
+Starter DigiHub remote app for teams building a new federated module.
 
----
-
-## 🚀 Getting Started
-
-### 🔧 Prerequisites
-
-- Node.js v16 or later
-- npm (v8+) or yarn
-
----
-
-### Git Clone
+## Quick start
 
 ```bash
-git clone https://github.com/sk5261/sample-remote.git
+git clone <your-repo-url>
 cd sample-remote
-```
-
-### 📦 Install Dependencies
-
-```bash
 npm install
-```
-
-🛠️ Development
-```bash
 npm start
 ```
-This spins up the development server at:
 
-```bash
-http://localhost:3002/
+Dev server: `http://localhost:3002`
+
+## What this starter already gives you
+
+- working webpack Module Federation remote
+- shared DigiHub Tailwind theme variables
+- prefixed routes so the remote does not collide with host routes
+- hosted auth bridge stub for `window.hostAuthContext`
+- example pages, hooks, contexts, and provider structure
+- `version.json` build manifest for host refresh detection
+
+## Change these before integrating
+
+1. Update the federation scope name in `webpack.config.js` from `sampleRemote` to your app scope.
+2. Update the route prefix in `src/routes.ts` from `/sample` to your app prefix.
+3. Replace the starter auth stub in `src/contexts/AuthContext.tsx` with your real standalone auth flow if needed.
+4. Replace the starter pages in `src/pages/` with your actual screens.
+
+## Project structure
+
+```text
+src/
+├── App.tsx
+├── bootstrap.tsx
+├── env.d.ts
+├── globals.css
+├── provider.tsx
+├── routes.ts
+├── components/
+│   ├── Demo.tsx
+│   └── ui/
+├── contexts/
+│   └── AuthContext.tsx
+├── hooks/
+│   └── useHostedApp.ts
+├── pages/
+│   ├── main.tsx
+│   └── settings.tsx
+├── utils/
+│   ├── ThemeContext.tsx
+│   └── hostDetection.ts
+└── lib/
+    └── utils.ts
 ```
 
-🧪 Build for Production
+## Integration rules that matter
+
+- Every route must stay under a short unique prefix.
+- Keep `remoteEntry.js` as the federation filename.
+- Keep `publicPath: "auto"`.
+- Keep `runtimeChunk: false`.
+- Keep `VersionManifestPlugin` so DigiHub can detect new deployments.
+- Detect hosted mode only through `window.isHostedRemote`.
+
+## Commands
 
 ```bash
+npm start
+npm run typecheck
 npm run build
 ```
-The output will be placed in the /dist directory.
 
-📡 Module Federation Setup
-This project exposes the following modules via remoteEntry.js and this is necessary configuration on webpack.config.js:
+## Verification
 
-| Remote Module | Path                       |
-|:--------------|---------------------------:|
-| DashboardCard | ./src/App                  |
-| Demo          | ./src/components/Demo      |
-| styles        | ./src/globals.css          |
+`npm run build` must produce `remoteEntry.js` and `version.json`.
 
+## More docs
 
+Use the DigiHub host integration guides from the host repo `docs/integration/`, especially:
 
-
-```js
-remotes: {
-  sampleRemote: "sampleRemote@http://localhost:3002/remoteEntry.js"
-}
-```
-And then dynamically import:
-
-```js
-const Demo = await import("sampleRemote/Demo");
-```
-in your host application. Right now we already have more efficient way of doing this.
-
-🧰 Tech Stack
-React 18
-
-TypeScript
-
-Webpack 5 + Module Federation
-
-TailwindCSS
-
-Radix UI
-
-Chart.js, clsx, lucide-react
-
-📝 Notes
-Ensure your host app matches shared dependency versions (React, ReactDOM, etc.).
-
-Port 3002 is hardcoded for development. Adjust in webpack.config.js if needed.
-
-TailwindCSS and PostCSS are fully configured with postcss-loader.
+- `00-START-HERE.md`
+- `03-building-your-app.md`
+- `04-authentication.md`
+- `05-theme-and-css.md`

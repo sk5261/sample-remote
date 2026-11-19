@@ -3,15 +3,20 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./globals.css";
+import { Providers } from "./provider";
 
-console.log("React version:", React.version);
-console.log("Analytics Remote is loading");
+const rootElement = document.getElementById("root");
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-root.render(
+if (!rootElement) {
+  throw new Error("Root element was not found.");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Providers>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Providers>
   </React.StrictMode>
-); 
+);
